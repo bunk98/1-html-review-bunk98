@@ -1,6 +1,6 @@
 body{
     margin-top:20px;
-    color: #1a202c;
+    color: #0d2657;
     text-align: left;
     background-color: #c0d1e9;    
 }
@@ -9,6 +9,26 @@ header {
     background-color: #990000;
     color: #EEEDEB;
 }
+
+#myList {
+    background-color: rgb(196, 229, 240);
+    color: #22441e;
+    padding: 40px;
+    text-align: Left;
+  }
+
+a:link, a:visited {
+    background-color: #bad0ec;
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  a:hover, a:active {
+    background-color: rgb(140, 127, 252);
+  }
 
 .main-body {
     padding: 15px;
