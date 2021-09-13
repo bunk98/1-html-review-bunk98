@@ -32,7 +32,7 @@
     </div>
   </nav>
 
-  <table class="table">
+  <table id='task' class="table">
     <thead>
       <tr>
         <th scope="col">Title</th>
@@ -107,6 +107,12 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+
+  <script src="js/tablesort.min.js"></script>
+
+  <script>
+    new Tablesort(document.getElementById('task'));
+  </script>
 
 </body>
 </html>
