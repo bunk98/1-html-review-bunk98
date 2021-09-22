@@ -42,6 +42,10 @@
 
     <div id="offerApp" class="col col-8">
 
+      <form v-on:submit.prevent="fetchUserData">
+        <button type="submit">Refresh</button>
+      </form>
+
       <a href="https://randomuser.me/"><img v-bind:src="person.picture.large" alt="Circle Image" class="img-raised-rounded-circle-img-fluid"> </a>
       <p>Fullname: {{ person.name.first }} {{ person.name.last }}</p>
       <p><a v-bind:href="'mailto:'+person.email">{{ person.email }}</a></p>
