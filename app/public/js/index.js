@@ -1,68 +1,100 @@
 const Offer = {
     data() {
       return {
-        "person": {},
-        "offers": [
-                {
-                    "id": 1,
-                    "name": "Janet Doe",
-                    "salary": 120000,
-                    "bonus": 9000,
-                    "company":"EY",
-                    "offerDate": "2021-09-08"
-                },
-                {
-                    "id": 2,
-                    "name": "Jordan Doe",
-                    "salary": 80000,
-                    "bonus": 2000,
-                    "company":"IU",
-                    "offerDate": "2021-08-09"
-                }
-            ]
+            "books": [],
+            "students": [],
+            "offers": [],
+            "selectedStudent": null,
+            "offerForm": {},
+            "selectedOffer": null
         }
     },
-
     computed: {
-        prettyBirthday() {
-            return dayjs(this.person.dob.date)
-            .format('D MMM YYYY')
-        }
+       
     },
-
     methods: {
-        fetchUserData() {
-            console.log("A");
-            fetch('https://randomuser.me/api/')
-            .then( response => response.json() )
-            .then( (responseJson) => {
-                console.log(responseJson);
-                console.log("C");
-                this.person = responseJson.results[0];
+        
+        fetchBookData() {
+            fetch('/api/books/')
+            .then(response => response.json())
+            .then((parsedJson) => {
+                console.log(parsedJson);
+                this.books = parsedJson
             })
-            .catch( (err) => {
-                console.error(err);
+            .catch( err => {
+                console.error(err)
             })
-            console.log("B");
-        }
-    },
+        },
 
+        postOffer(evt) {
+            console.log ("Test:", this.selectedOffer);
+          if (this.selectedOffer) {
+              this.postEditOffer(evt);
+          } else {
+              this.postNewOffer(evt);
+          }
+        },
+        postEditOffer(evt) {
+          this.offerForm.id = this.selectedOffer.id;
+          this.offerForm.studentId = this.selectedStudent.id;     
+          
+          console.log("Editing!", this.offerForm);
+  
+          fetch('api/offer/update.php', {
+              method:'POST',
+              body: JSON.stringify(this.offerForm),
+              headers: {
+                "Content-Type": "application/json; charset=utf-8"
+              }
+            })
+            .then( response => response.json() )
+            .then( json => {
+              console.log("Returned from post:", json);
+              // TODO: test a result was returned!
+              this.offers = json;
+              
+              // reset the form
+              this.handleResetEdit();
+            });
+        },
+
+        postNewOffer(evt) {
+           // this.offerForm.studentId = this.selectedStudent.id;        
+            console.log("Posting:", this.offerForm);
+
+            fetch('api/books/create.php', {
+                method:'POST',
+                body: JSON.stringify(this.offerForm),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.offers = json;
+                
+                // reset the form
+                this.handleResetEdit();
+              });
+
+        },
+
+        handleEditOffer(book) {
+            this.selectedOffer = book;
+            this.offerForm = Object.assign({}, this.selectedOffer);
+        },
+        handleResetEdit() {
+            this.selectedOffer = null;
+            this.offerForm = {};
+        }
+
+      
+    },
     created() {
-        console.log("A");
-        fetch('https://randomuser.me/api/')
-        .then( response => response.json() )
-        .then( (responseJson) => {
-            console.log(responseJson);
-            console.log("C");
-            this.person = responseJson.results[0];
-        })
-        .catch( (err) => {
-            console.error(err);
-        })
-        console.log("B");
-        this.fetchUserData();
-    } //end created
-} // end Offer config
+        this.fetchBookData();
+    }
+  }
   
 Vue.createApp(Offer).mount('#offerApp');
-console.log("Z");
