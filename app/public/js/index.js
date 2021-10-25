@@ -19,7 +19,7 @@ const Offer = {
             .then(response => response.json())
             .then((parsedJson) => {
                 console.log(parsedJson);
-                this.books = parsedJson
+                this.offers = parsedJson
             })
             .catch( err => {
                 console.error(err)

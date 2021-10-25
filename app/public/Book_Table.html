@@ -35,7 +35,7 @@
 
   <div  id="offerApp" class="container">
   
-  <table id='task' class="table" v-if="books.length">
+  <table id='task' class="table" v-if="offers.length">
     <thead>
       <tr>
         <th scope="col">Title</th>
@@ -47,7 +47,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="book in books">
+      <tr v-for="book in offers">
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.year_pub }}</td>
@@ -65,7 +65,7 @@
   </table>
 
   <h3>{{ selectedOffer === null ? "Add " : "Edit " }} Book</h3>
-  <form v-on:submit.prevent="postOffer">
+  <form v-on:submit.prevent="postNewOffer">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" v-model="offerForm.title"
