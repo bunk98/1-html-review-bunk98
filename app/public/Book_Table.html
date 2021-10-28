@@ -65,7 +65,7 @@
   </table>
 
   <h3>{{ selectedOffer === null ? "Add " : "Edit " }} Book</h3>
-  <form v-on:submit.prevent="postNewOffer">
+  <form v-on:submit.prevent="postOffer">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" v-model="offerForm.title"
